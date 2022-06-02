@@ -49,8 +49,7 @@ Removing an item from the list;
 `.print_all_with_brand(brand: String)` -> Boolean Type
 ***
 
-![](../../Desktop/Screenshot 2022-06-02 at 22.27.02.png)
-
+![Screenshot](https://user-images.githubusercontent.com/93152974/171742422-27b37e05-acfa-453e-a0fa-a651587e401d.png)
 
 
 
