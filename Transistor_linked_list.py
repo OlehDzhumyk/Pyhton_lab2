@@ -62,46 +62,35 @@ class TransistorLinkedList:
         self.length = 0
 
     def get(self, index: int):
+        if index > self.length - 1 or index < 0:
+            raise Exception(f"Out of range. Get {index} form {self.length - 1}")
+
         current_node = self.head
         for i in range(index):
             current_node = current_node.next_node
-        return current_node
+        return current_node.transistor
 
-    def set(self, index: int, node_path: Node):
-        if index > self.length - 1:
-            print("йой")
+    def set(self, index: int, transistor: Transistor):
+        if index > self.length - 1 or index < 0:
+            raise Exception(f"Out of range. Get {index} form {self.length - 1}")
 
-        if index == 0:
-            node = Node(node_path.transistor, None, self.head.next_node)
-            self.head.next_node.previous_node = node
-            self.head = node
-            return True
-
-        elif index == self.length - 1:
-            node = Node(node_path.transistor, self.tail.previous_node, None)
-            self.tail.previous_node.next_node = node
-            self.tail = node
-            return True
-        else:
-            current_node = self.head
-            for i in range(index):
-                current_node = current_node.next_node
-
-            node = Node(node_path.transistor, current_node.previous_node, current_node.next_node)
-
-            current_node.previous_node.next_node = node
-            current_node.next_node.previous_node = node
+        current_node = self.head
+        for i in range(index):
+            current_node = current_node.next_node
+        current_node.transistor = transistor
 
     def sort_by_max_current(self):
         for i in range(self.length):
             x = self.get(i)
             j = i
-            while j > 0 and self.get(j - 1).transistor.maximum_current > x.transistor.maximum_current:
+            while j > 0 and self.get(j - 1).maximum_current > x.maximum_current:
                 self.set(j, self.get(j - 1))
                 j = j - 1
             self.set(j, x)
 
     def print_all_with_brand(self, brand: str):
+        current_node = self.head
         for i in range(self.length):
-            if self.get(i).transistor.brand == brand:
-                self.get(i).print_transistor()
+            if current_node.transistor.brand == brand:
+                current_node.print_transistor()
+            current_node = current_node.next_node
